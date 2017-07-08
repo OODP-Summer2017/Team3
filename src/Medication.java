@@ -7,6 +7,20 @@ public class Medication {
 	private Date TimeTaken;
 	private Date TimeEffective;
 	private int PainReduction;
+	
+	public Medication(){
+		
+	}
+	
+	public Medication(String name, String ClassVar, int dosageInMilligrams, Date TimeTaken, Date TimeEffective, int painReduction){
+		this.Name = name;
+		this.ClassVar = ClassVar;
+		this.DoseInMilligrams = dosageInMilligrams;
+		this.TimeTaken = TimeTaken;
+		this.TimeEffective = TimeEffective;
+		this.PainReduction = painReduction;
+	}
+	
 	public String getMedciation(){
 		return "Medication";
 		
@@ -47,5 +61,6 @@ public class Medication {
 	public void setPainReduction(int painReduction) {
 		PainReduction = painReduction;
 	}
+	
 	
 }
