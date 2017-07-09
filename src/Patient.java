@@ -1,3 +1,5 @@
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -47,14 +49,14 @@ public class Patient {
 	}
 	
 	public String Summary(){
-		String sum = null;
+		String sum = "SUMMARY REPORT\n=======================\n";
 		float s=0;
 		float d=0;
 		for(int index=0;index<headacheList.size();index++){
 			s=s+headacheList.get(index).getPainDescriptor().getSeverity();
 			d=d+headacheList.get(index).getDuration();
 		}
-		sum="\nReport Start Date : "+headacheList.get(0).getDate().toString()+
+		sum+="Report Start Date : "+headacheList.get(0).getDate().toString()+
 				"\n Report End Date : "+headacheList.get(headacheList.size()-1).getDate().toString()+
 				"\n Headache Count : "+headacheList.size()+
 				"\nAverage Severity : "+s/headacheList.size()+
@@ -64,7 +66,8 @@ public class Patient {
 	
 	public String detailedMedicationReport(){
 		HashMap<String, ArrayList<Medication>> medList = new HashMap<String, ArrayList<Medication>>();
-		String stringToReturn = "";
+		NumberFormat outputFormat = new DecimalFormat("#0.00");
+		String stringToReturn = "DETAILED MEDICATION REPORT\n=======================\n";
 		for(Headache h:headacheList){
 			if(!medList.containsKey(h.getMedication().getName())){
 				medList.put(h.getMedication().getName(), new ArrayList<Medication>());
@@ -90,8 +93,33 @@ public class Patient {
 			stringToReturn += "Medication Class : " + classVar + "\n";
 			stringToReturn += "Dose : " + dosage + " mg\n";
 			// Convert effectivitySum from milliseconds to hours
-			stringToReturn += "Average Time To Effectivity (hours) : " + (effectivitySum * 2.77778E-7) / numberOfDoses + "\n";
+			stringToReturn += "Average Time To Effectivity (hours) : " + outputFormat.format((effectivitySum * 2.77778E-7) / numberOfDoses) + "\n";
 			stringToReturn += "Total Doses Taken : " + numberOfDoses + "\n\n";
+		}
+		
+		return stringToReturn;
+	}
+	
+	public String detailedSelfHelpReport(){
+		HashMap<String, ArrayList<AbstractSelfHelp>> selfHelpList = new HashMap<String, ArrayList<AbstractSelfHelp>>();
+		String stringToReturn = "DETAILED SELF HELP REPORT\n=======================\n";
+		for(Headache h:headacheList){
+			for(AbstractSelfHelp selfHelp:h.getSelfHelp()){
+				if(!selfHelpList.containsKey(selfHelp.getSelfHelp())){
+					selfHelpList.put(selfHelp.getSelfHelp(), new ArrayList<AbstractSelfHelp>());
+				}
+				selfHelpList.get(selfHelp.getSelfHelp()).add(selfHelp);
+			}
+		}
+		
+		Iterator<Map.Entry<String, ArrayList<AbstractSelfHelp>>> mapIterator = selfHelpList.entrySet().iterator();
+		while(mapIterator.hasNext()){
+			Map.Entry<String, ArrayList<AbstractSelfHelp>> keyValuePair = (Map.Entry<String, ArrayList<AbstractSelfHelp>>)mapIterator.next();
+			double timesUsed = keyValuePair.getValue().size();
+			
+			stringToReturn += "Self-help Name : " + keyValuePair.getKey() + "\n";
+			stringToReturn += "Times Used : " + timesUsed + "\n";
+			stringToReturn += "Average Effectivity : " +  AbstractSelfHelp.getAverageEffectivity(keyValuePair.getValue()) + "\n";
 		}
 		
 		return stringToReturn;

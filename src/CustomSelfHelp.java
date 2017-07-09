@@ -8,12 +8,6 @@ public class CustomSelfHelp extends AbstractSelfHelp {
 		return null;
 	}
 
-	@Override
-	public SelfHelpDescription getSelfHelpDescription() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public String getSelfHelpMethod() {
 		return selfHelpMethod;
 	}

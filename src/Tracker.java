@@ -219,11 +219,13 @@ public class Tracker {
 		headache4.setSelfHelp(h4SelfHelp);
 		patient1.addHeadache(headache4);
 		
-		System.out.println("SUMMARY FOR PATIENT 1");
+		//System.out.println("SUMMARY FOR PATIENT 1");
 		System.out.println(patient1.Summary());
 		
-		System.out.println("\n\n\nMEDICATION REPORT FOR PATIENT 1");
-		System.out.println(patient1.detailedMedicationReport());
+		//System.out.println("\n\n\nMEDICATION REPORT FOR PATIENT 1");
+		System.out.println("\n\n" + patient1.detailedMedicationReport());
+		
+		System.out.println("\n\n" + patient1.detailedSelfHelpReport());
 	}
 
 }

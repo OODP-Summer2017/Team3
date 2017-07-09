@@ -16,13 +16,13 @@ public class StandardSelfHelp extends AbstractSelfHelp {
 	@Override
 	public String getSelfHelp() {
 		// TODO Auto-generated method stub
-		return null;
+		return selfHelpTreatment.toString();
 	}
 
 	@Override
 	public SelfHelpDescription getSelfHelpDescription() {
 		// TODO Auto-generated method stub
-		return null;
+		return selfHelpDescription;
 	}
 
 	public void setSelfHelpDescription(SelfHelpDescription selfHelpDescription ) {
