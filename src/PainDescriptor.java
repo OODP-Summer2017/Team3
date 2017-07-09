@@ -14,6 +14,12 @@ public class PainDescriptor {
 	public int getSeverity() {
 		return severity;
 	}
+	public String getPainDescription(){
+		String desc;
+		desc=description.getPainDescription();
+		return desc;
+		
+	}
 	public void setSeverity(int severity) {
 		this.severity = severity;
 	}

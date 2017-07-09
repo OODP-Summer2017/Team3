@@ -13,6 +13,12 @@ public class Headache {
 	Medication medication;
 	AbstractTrigger trigger;
 	AbstractSelfHelp selfHelp;
+	public String detailedMedication(){
+		return "\nMedication Name : "+medication.getName()+
+				"\nMedication Class : "+medication.getClassVar()+
+				"\nDosage : "+medication.getDoseInMilligrams()
+				;
+	}
 	
 	public Headache() {
 		
