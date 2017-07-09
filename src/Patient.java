@@ -1,9 +1,16 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class Patient {
 	
 	private String name;
 	private ArrayList<Headache> headacheList;
+	
+	public Patient(){
+		headacheList = new ArrayList<Headache>();
+	}
 	
 	public String getName() {
 		return name;
@@ -19,17 +26,22 @@ public class Patient {
 	public String paitentData(){
 		String sum=null;
 		for(int i=0;i<headacheList.size();i++){
-			sum="\nDate = "+headacheList.get(i).date.toString()+
-					"\nDuration = "+headacheList.get(i).duration+
-					"\nType = "+headacheList.get(i).type+
-					"\nSymptoms = "+headacheList.get(i).prodromeSymptoms+" "+headacheList.get(i).concurrentSymptoms+" "+headacheList.get(i).postdromeSymptoms+
-					"\nSeverity = "+headacheList.get(i).painDescriptor.getSeverity()+
-					"\nLocation = "+headacheList.get(i).painDescriptor.getLocation()+
-					"\nMedication = "+headacheList.get(i).medication.getName()+
-					"\nMedication Taken = "+headacheList.get(i).medication.getTimeTaken().toString()+
-					"\nMedication Effective = "+headacheList.get(i).medication.getTimeEffective().toString()+
-					"\nSelf Help = "+headacheList.get(i).selfHelp.getSelfHelp()+
-					"\nTrigger = "+headacheList.get(i).trigger.getTrigger();
+			sum="\nDate = "+headacheList.get(i).getDate().toString()+
+					"\nDuration = "+headacheList.get(i).getDuration()+
+					"\nType = "+headacheList.get(i).getType()+
+					"\nSymptoms = "+headacheList.get(i).getProdromeSymptoms()+" "+headacheList.get(i).getConcurrentSymptoms()+" "+headacheList.get(i).getPostdromeSymptoms()+
+					"\nSeverity = "+headacheList.get(i).getPainDescriptor().getSeverity();
+			
+					for(PainDescriptorContainer container : headacheList.get(i).getPainDescriptor().getLocationList())
+					{
+						sum+="\nLocation and Sidedness = " + container.getPainLocation().toString() + "/" + container.getSidedness().toString()+ "  ";
+					}
+					
+					sum +="\nMedication = "+headacheList.get(i).getMedication().getName()+
+					"\nMedication Taken = "+headacheList.get(i).getMedication().getTimeTaken().toString()+
+					"\nMedication Effective = "+headacheList.get(i).getMedication().getTimeEffective().toString()+
+					"\nSelf Help = "+headacheList.get(i).getSelfHelp()+
+					"\nTrigger = "+headacheList.get(i).getTrigger();
 		}
 		return sum;
 	}
@@ -39,24 +51,50 @@ public class Patient {
 		float s=0;
 		float d=0;
 		for(int index=0;index<headacheList.size();index++){
-			s=s+headacheList.get(index).painDescriptor.getSeverity();
-			d=d+headacheList.get(index).duration;
+			s=s+headacheList.get(index).getPainDescriptor().getSeverity();
+			d=d+headacheList.get(index).getDuration();
 		}
-		sum="\nReport Start Date : "+headacheList.get(0).date.toString()+
-				"\n Report End Date : "+headacheList.get(headacheList.size()-1).date.toString()+
-				"\n Headache Count : "+headacheList.get(headacheList.size())+
+		sum="\nReport Start Date : "+headacheList.get(0).getDate().toString()+
+				"\n Report End Date : "+headacheList.get(headacheList.size()-1).getDate().toString()+
+				"\n Headache Count : "+headacheList.size()+
 				"\nAverage Severity : "+s/headacheList.size()+
 				"\nAverage Duration : "+d/headacheList.size();		
 		return sum;
 	}
 	
 	public String detailedMedicationReport(){
-		String d=null;
+		HashMap<String, ArrayList<Medication>> medList = new HashMap<String, ArrayList<Medication>>();
+		String stringToReturn = "";
 		for(Headache h:headacheList){
-			d=h.detailedMedication()+"\n";
+			if(!medList.containsKey(h.getMedication().getName())){
+				medList.put(h.getMedication().getName(), new ArrayList<Medication>());
 			}
-
-		return d;
+			medList.get(h.getMedication().getName()).add(h.getMedication());
+		}
+		
+		Iterator<Map.Entry<String, ArrayList<Medication>>> mapIterator = medList.entrySet().iterator();
+		while(mapIterator.hasNext()){
+			Map.Entry<String, ArrayList<Medication>> keyValuePair = (Map.Entry<String, ArrayList<Medication>>)mapIterator.next();
+			double numberOfDoses = keyValuePair.getValue().size();
+			double effectivitySum = 0;
+			String name = "";
+			String classVar = "";
+			int dosage = 0;
+			for(Medication med : keyValuePair.getValue()){
+				name = med.getName();
+				classVar = med.getClassVar();
+				dosage = med.getDoseInMilligrams();
+				effectivitySum += med.getTimeEffective().getTime() - med.getTimeTaken().getTime(); // Returns Milliseconds
+			}
+			stringToReturn += "Medication Name : " + name + "\n";
+			stringToReturn += "Medication Class : " + classVar + "\n";
+			stringToReturn += "Dose : " + dosage + " mg\n";
+			// Convert effectivitySum from milliseconds to hours
+			stringToReturn += "Average Time To Effectivity (hours) : " + (effectivitySum * 2.77778E-7) / numberOfDoses + "\n";
+			stringToReturn += "Total Doses Taken : " + numberOfDoses + "\n\n";
+		}
+		
+		return stringToReturn;
 	}
 	
 }
