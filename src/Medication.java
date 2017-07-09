@@ -25,6 +25,7 @@ public class Medication {
 		return "Medication";
 		
 	}
+	
 	public String getName() {
 		return Name;
 	}

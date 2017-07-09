@@ -153,6 +153,15 @@ public class Headache {
 	private Medication medication;
 	private ArrayList<AbstractTrigger> trigger;
 	private ArrayList<AbstractSelfHelp> selfHelp;
+
+
+	public String detailedMedication(){
+		return "\nMedication Name : "+medication.getName()+
+				"\nMedication Class : "+medication.getClassVar()+
+				"\nDosage : "+medication.getDoseInMilligrams()
+				;
+	}
+
 	
 	public Headache() {
 		
