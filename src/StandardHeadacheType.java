@@ -18,7 +18,10 @@ public class StandardHeadacheType extends AbstractHeadacheType {
 	}
 
 	public StandardHeadacheType() {
-		// TODO Auto-generated constructor stub
+		
 	}
-
+	
+	public StandardHeadacheType(HeadacheType type){
+		this.type = type;
+	}
 }
