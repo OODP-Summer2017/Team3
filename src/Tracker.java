@@ -59,14 +59,16 @@ public class Tracker {
 		Patient patient1 = new Patient();
 		
 		// BEGIN HEADACHE 1
-		Headache headache1 = new Headache();
+		//Headache headache1 = new Headache();
+		ConcreteHeadacheBuilder builder = new ConcreteHeadacheBuilder();
+		
 		try {
-			headache1.setDate(format.parse("5/1/2017 7:30:00 AM"));
+			builder.setDate(format.parse("5/1/2017 7:30:00 AM"));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		headache1.setDuration(210); //duration in minutes
-		headache1.setType(new StandardHeadacheType(HeadacheType.MIGRAINE));
+		builder.setDuration(210); //duration in minutes
+		builder.setHeadacheType(new StandardHeadacheType(HeadacheType.MIGRAINE));
 		PainDescriptor descriptor = new PainDescriptor();
 		descriptor.setSeverity(7);
 		descriptor.setDescription(new StandardPainDescriptor(PainDescription.stabbing));
@@ -74,41 +76,42 @@ public class Tracker {
 		PainDescriptorContainer h1location = new PainDescriptorContainer(PainLocation.ocular, Sidedness.left);
 		h1locationList.add(h1location);
 		descriptor.setLocationList(h1locationList);
-		headache1.setPainDescriptor(descriptor);
+		builder.setPainDescriptor(descriptor);
 		ArrayList<AbstractSymptom> headache1Prodrome = new ArrayList<AbstractSymptom>();
 		headache1Prodrome.add(new StandardSymptom(Symptom.NAUSEA_VOMITING));
-		headache1.setProdromeSymptoms(headache1Prodrome);
+		builder.setProdromeSymptoms(headache1Prodrome);
 		ArrayList<AbstractSymptom> headache1Concurrent = new ArrayList<AbstractSymptom>();
 		headache1Concurrent.add(new StandardSymptom(Symptom.LIGHT_SENSITIVITY));
 		headache1Concurrent.add(new StandardSymptom(Symptom.SOUND_SENSITIVITY));
-		headache1.setConcurrentSymptoms(headache1Concurrent);
+		builder.setConcurrentSymptoms(headache1Concurrent);
 		ArrayList<AbstractSymptom> headache1Postdrome = new ArrayList<AbstractSymptom>();
 		headache1Postdrome.add(new CustomSymptom("Fatigue"));
-		headache1.setPostdromeSymptoms(headache1Postdrome);
+		builder.setPostdromeSymptoms(headache1Postdrome);
 		try {
-			headache1.setMedication(new Medication("MaxAlt", "triptan", 5, format.parse("5/1/2017 9:00:00 AM"), format.parse("5/1/2017 11:00:00 AM"), 2));
+			builder.setMedication(new Medication("MaxAlt", "triptan", 5, format.parse("5/1/2017 9:00:00 AM"), format.parse("5/1/2017 11:00:00 AM"), 2));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		ArrayList<AbstractTrigger> h1Triggers = new ArrayList<AbstractTrigger>();
 		h1Triggers.add(new StandardTrigger(Trigger.SCENT));
 		h1Triggers.add(new StandardTrigger(Trigger.LIGHTING));
-		headache1.setTrigger(h1Triggers);
+		builder.setTriggers(h1Triggers);
 		
 		ArrayList<AbstractSelfHelp> h1SelfHelp = new ArrayList<AbstractSelfHelp>();
-		headache1.setSelfHelp(h1SelfHelp);
+		builder.setSelfHelps(h1SelfHelp);
 		
-		patient1.addHeadache(headache1);
+		patient1.addHeadache(builder.getResult());
 		
 		// BEGIN HEADACE 2
-		Headache headache2 = new Headache();
+		//Headache headache2 = new Headache();
+		builder = new ConcreteHeadacheBuilder();
 		try {
-			headache2.setDate(format.parse("5/6/2017 6:00:00 PM"));
+			builder.setDate(format.parse("5/6/2017 6:00:00 PM"));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		headache2.setDuration(195); //duration in minutes
-		headache2.setType(new StandardHeadacheType(HeadacheType.TENSION));
+		builder.setDuration(195); //duration in minutes
+		builder.setHeadacheType(new StandardHeadacheType(HeadacheType.TENSION));
 		PainDescriptor h2Descriptor = new PainDescriptor();
 		h2Descriptor.setSeverity(5);
 		h2Descriptor.setDescription(new CustomPainDescriptor("dull"));
@@ -116,38 +119,39 @@ public class Tracker {
 		PainDescriptorContainer h2location = new PainDescriptorContainer(PainLocation.sub_occipital, Sidedness.bilateral);
 		h2locationList.add(h2location);
 		h2Descriptor.setLocationList(h2locationList);
-		headache2.setPainDescriptor(h2Descriptor);
+		builder.setPainDescriptor(h2Descriptor);
 		ArrayList<AbstractSymptom> h2Prodrome = new ArrayList<AbstractSymptom>();
-		headache2.setProdromeSymptoms(h2Prodrome);
+		builder.setProdromeSymptoms(h2Prodrome);
 		ArrayList<AbstractSymptom> h2Concurrent = new ArrayList<AbstractSymptom>();
 		h2Concurrent.add(new StandardSymptom(Symptom.NECK_PAIN));
-		headache2.setConcurrentSymptoms(h2Concurrent);
+		builder.setConcurrentSymptoms(h2Concurrent);
 		ArrayList<AbstractSymptom> h2Postdrome = new ArrayList<AbstractSymptom>();
-		headache2.setPostdromeSymptoms(h2Postdrome);
+		builder.setPostdromeSymptoms(h2Postdrome);
 		try {
-			headache2.setMedication(new Medication("Anaprox", "NSAID", 550, format.parse("5/6/2017 7:00:00 PM"), format.parse("5/6/2017 9:15:00 PM"), 2));
+			builder.setMedication(new Medication("Anaprox", "NSAID", 550, format.parse("5/6/2017 7:00:00 PM"), format.parse("5/6/2017 9:15:00 PM"), 2));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		ArrayList<AbstractTrigger> h2Triggers = new ArrayList<AbstractTrigger>();
 		h2Triggers.add(new StandardTrigger(Trigger.MISSED_MEALS));
-		headache2.setTrigger(h2Triggers);
+		builder.setTriggers(h2Triggers);
 		
 		ArrayList<AbstractSelfHelp> h2SelfHelp = new ArrayList<AbstractSelfHelp>();
 		h2SelfHelp.add(new StandardSelfHelp(SelfHelpDescription.HELPED_A_LOT, SelfHelpTreatment.PHYSICAL_THERAPY));
-		headache2.setSelfHelp(h2SelfHelp);
+		builder.setSelfHelps(h2SelfHelp);
 		
-		patient1.addHeadache(headache2);
+		patient1.addHeadache(builder.getResult());
 		
 		// BEGIN HEADACE 3
-		Headache headache3 = new Headache();
+		//Headache headache3 = new Headache();
+		builder = new ConcreteHeadacheBuilder();
 		try {
-			headache3.setDate(format.parse("5/10/2017 4:00:00 PM"));
+			builder.setDate(format.parse("5/10/2017 4:00:00 PM"));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		headache3.setDuration(300); //duration in minutes
-		headache3.setType(new StandardHeadacheType(HeadacheType.TENSION));
+		builder.setDuration(300); //duration in minutes
+		builder.setHeadacheType(new StandardHeadacheType(HeadacheType.TENSION));
 		PainDescriptor h3Descriptor = new PainDescriptor();
 		h3Descriptor.setSeverity(6);
 		h3Descriptor.setDescription(new CustomPainDescriptor("dull"));
@@ -156,68 +160,69 @@ public class Tracker {
 		PainDescriptorContainer h3location2 = new PainDescriptorContainer(PainLocation.temporal, Sidedness.right);
 		h3locationList.add(h3location);
 		h3locationList.add(h3location2);
-		headache3.setPainDescriptor(h3Descriptor);
+		builder.setPainDescriptor(h3Descriptor);
 		ArrayList<AbstractSymptom> h3Prodrome = new ArrayList<AbstractSymptom>();
-		headache3.setProdromeSymptoms(h3Prodrome);
+		builder.setProdromeSymptoms(h3Prodrome);
 		ArrayList<AbstractSymptom> h3Concurrent = new ArrayList<AbstractSymptom>();
 		h3Concurrent.add(new StandardSymptom(Symptom.NECK_PAIN));
 		h3Concurrent.add(new StandardSymptom(Symptom.SINUS_CONGESTION));
-		headache3.setConcurrentSymptoms(h3Concurrent);
+		builder.setConcurrentSymptoms(h3Concurrent);
 		ArrayList<AbstractSymptom> h3Postdrome = new ArrayList<AbstractSymptom>();
-		headache3.setPostdromeSymptoms(h3Postdrome);
+		builder.setPostdromeSymptoms(h3Postdrome);
 		try {
-			headache3.setMedication(new Medication("Anaprox", "NSAID", 550, format.parse("5/6/2017 5:00:00 PM"), format.parse("5/6/2017 7:00:00 PM"), 2));
+			builder.setMedication(new Medication("Anaprox", "NSAID", 550, format.parse("5/6/2017 5:00:00 PM"), format.parse("5/6/2017 7:00:00 PM"), 2));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		ArrayList<AbstractTrigger> h3Triggers = new ArrayList<AbstractTrigger>();
 		h1Triggers.add(new StandardTrigger(Trigger.STRESS));
-		headache3.setTrigger(h3Triggers);
+		builder.setTriggers(h3Triggers);
 		
 		ArrayList<AbstractSelfHelp> h3SelfHelp = new ArrayList<AbstractSelfHelp>();
 		h3SelfHelp.add(new StandardSelfHelp(SelfHelpDescription.DIDNT_HELP, SelfHelpTreatment.BIOFEEDBACK));
 		h3SelfHelp.add(new StandardSelfHelp(SelfHelpDescription.HELPED_A_LOT, SelfHelpTreatment.PHYSICAL_THERAPY));
-		headache3.setSelfHelp(h3SelfHelp);
-		patient1.addHeadache(headache3);
+		builder.setSelfHelps(h3SelfHelp);
+		patient1.addHeadache(builder.getResult());
 		
 		// BEGIN HEADACE 4
-		Headache headache4 = new Headache();
+		//Headache headache4 = new Headache();
+		builder = new ConcreteHeadacheBuilder();
 		try {
-			headache4.setDate(format.parse("5/17/2017 9:00:00 AM"));
+			builder.setDate(format.parse("5/17/2017 9:00:00 AM"));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		headache4.setDuration(180); //duration in minutes
-		headache4.setType(new StandardHeadacheType(HeadacheType.MIGRAINE));
+		builder.setDuration(180); //duration in minutes
+		builder.setHeadacheType(new StandardHeadacheType(HeadacheType.MIGRAINE));
 		PainDescriptor h4Descriptor = new PainDescriptor();
 		h4Descriptor.setSeverity(7);
 		h4Descriptor.setDescription(new StandardPainDescriptor(PainDescription.pulsating));
 		ArrayList<PainDescriptorContainer> h4locationList = new ArrayList<PainDescriptorContainer>();
 		PainDescriptorContainer h4location = new PainDescriptorContainer(PainLocation.ocular, Sidedness.left);
 		h4locationList.add(h4location);
-		headache4.setPainDescriptor(h4Descriptor);
+		builder.setPainDescriptor(h4Descriptor);
 		ArrayList<AbstractSymptom> h4Prodrome = new ArrayList<AbstractSymptom>();
 		h4Prodrome.add(new StandardSymptom(Symptom.NAUSEA_VOMITING));
 		h4Prodrome.add(new StandardSymptom(Symptom.TEARING_REDNESS_OF_EYES));
-		headache4.setProdromeSymptoms(h4Prodrome);
+		builder.setProdromeSymptoms(h4Prodrome);
 		ArrayList<AbstractSymptom> h4Concurrent = new ArrayList<AbstractSymptom>();
 		h4Concurrent.add(new StandardSymptom(Symptom.VISION_DISTURBANCES));
-		headache4.setConcurrentSymptoms(h4Concurrent);
+		builder.setConcurrentSymptoms(h4Concurrent);
 		ArrayList<AbstractSymptom> h4Postdrome = new ArrayList<AbstractSymptom>();
-		headache4.setPostdromeSymptoms(h4Postdrome);
+		builder.setPostdromeSymptoms(h4Postdrome);
 		try {
-			headache4.setMedication(new Medication("MaxAlt", "triptan", 5, format.parse("5/17/2017 6:15:00 AM"), format.parse("5/17/2017 7:30:00 AM"), 2));
+			builder.setMedication(new Medication("MaxAlt", "triptan", 5, format.parse("5/17/2017 6:15:00 AM"), format.parse("5/17/2017 7:30:00 AM"), 2));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		ArrayList<AbstractTrigger> h4Triggers = new ArrayList<AbstractTrigger>();
 		h1Triggers.add(new StandardTrigger(Trigger.SLEEP_CYCLE_CHANGE));
-		headache4.setTrigger(h4Triggers);
+		builder.setTriggers(h4Triggers);
 		
 		ArrayList<AbstractSelfHelp> h4SelfHelp = new ArrayList<AbstractSelfHelp>();
 		h4SelfHelp.add(new StandardSelfHelp(SelfHelpDescription.HELPED_A_LITTLE, SelfHelpTreatment.REST_SLEEP));
-		headache4.setSelfHelp(h4SelfHelp);
-		patient1.addHeadache(headache4);
+		builder.setSelfHelps(h4SelfHelp);
+		patient1.addHeadache(builder.getResult());
 		
 		//System.out.println("SUMMARY FOR PATIENT 1");
 		System.out.println(patient1.Summary());
