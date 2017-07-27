@@ -160,6 +160,7 @@ public class Tracker {
 		PainDescriptorContainer h3location2 = new PainDescriptorContainer(PainLocation.temporal, Sidedness.right);
 		h3locationList.add(h3location);
 		h3locationList.add(h3location2);
+		h3Descriptor.setLocationList(h3locationList);
 		builder.setPainDescriptor(h3Descriptor);
 		ArrayList<AbstractSymptom> h3Prodrome = new ArrayList<AbstractSymptom>();
 		builder.setProdromeSymptoms(h3Prodrome);
@@ -200,6 +201,7 @@ public class Tracker {
 		ArrayList<PainDescriptorContainer> h4locationList = new ArrayList<PainDescriptorContainer>();
 		PainDescriptorContainer h4location = new PainDescriptorContainer(PainLocation.ocular, Sidedness.left);
 		h4locationList.add(h4location);
+		h4Descriptor.setLocationList(h4locationList);
 		builder.setPainDescriptor(h4Descriptor);
 		ArrayList<AbstractSymptom> h4Prodrome = new ArrayList<AbstractSymptom>();
 		h4Prodrome.add(new StandardSymptom(Symptom.NAUSEA_VOMITING));
@@ -231,6 +233,9 @@ public class Tracker {
 		System.out.println("\n\n" + patient1.detailedMedicationReport());
 		
 		System.out.println("\n\n" + patient1.detailedSelfHelpReport());
+		
+		System.out.println("\n\n" + "Detailed Patient Data: \n");
+		System.out.println(patient1.patientData());
 	}
 
 }

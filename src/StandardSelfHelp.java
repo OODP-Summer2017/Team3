@@ -43,5 +43,9 @@ public class StandardSelfHelp extends AbstractSelfHelp {
 	public void setSelfHelpTreatment(SelfHelpTreatment selfHelpTreatment) {
 		this.selfHelpTreatment = selfHelpTreatment;
 	}
+	
+	public String getSelfHelpAsString(){
+		return this.getSelfHelp();
+	}
 
 }

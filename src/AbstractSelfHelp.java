@@ -4,6 +4,8 @@ public abstract class AbstractSelfHelp {
 	private SelfHelpDescription selfHelpDescription;
 
 	public abstract String getSelfHelp();
+	
+	public abstract String getSelfHelpAsString();
 
 	public int getSeverityDecrease(SelfHelpDescription x) {
 		return 1;

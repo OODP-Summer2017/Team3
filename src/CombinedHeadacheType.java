@@ -20,5 +20,20 @@ public class CombinedHeadacheType extends AbstractHeadacheType {
 	public CombinedHeadacheType() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	public String getTypeAsString(){
+		if(types.length > 0){
+			String sToReturn = "";
+			for(HeadacheType t : types){
+				sToReturn += t.toString();
+			}
+			
+			return sToReturn;
+		}
+		else
+		{
+			return "";
+		}
+	}
 
 }

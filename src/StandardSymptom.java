@@ -23,4 +23,8 @@ public class StandardSymptom extends AbstractSymptom {
 	public void setSymptom(Symptom symptom) {
 		this.symptom = symptom;
 	}
+	
+	public String getSymptomAsString(){
+		return this.symptom.toString();
+	}
 }

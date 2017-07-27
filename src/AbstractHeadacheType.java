@@ -5,4 +5,5 @@ public abstract class AbstractHeadacheType {
 		// TODO Auto-generated constructor stub
 	}
 
+	public abstract String getTypeAsString();
 }

@@ -72,6 +72,31 @@ public class Headache {
 	public void setProdromeSymptoms(ArrayList<AbstractSymptom> prodromeSymptoms) {
 		this.prodromeSymptoms = prodromeSymptoms;
 	}
+	
+	public String getSymptomList(){
+		String s = "PRODROME SYMPTOMS:\n";
+		for(AbstractSymptom symptom : this.prodromeSymptoms){
+			s += symptom.getSymptomAsString() + "\n";
+		}
+		s += "\nCONCURRENT SYMPTOMS:\n";
+		for(AbstractSymptom symptom : this.concurrentSymptoms){
+			s += symptom.getSymptomAsString() + "\n";
+		}
+		s+= "\nPOSTDROME SYMPTOMS:\n";
+		for(AbstractSymptom symptom : this.postdromeSymptoms){
+			s += symptom.getSymptomAsString() + "\n";
+		}
+		return s;
+	}
+	
+	public String getSelfHelpList(){
+		String s = "SELF HELP LIST:\n";
+		
+		for(AbstractSelfHelp selfHelp : this.selfHelp){
+			s += selfHelp.getSelfHelpAsString();
+		}
+		return s;
+	}
 
 	/**
 	 * @return the concurrentSymptoms

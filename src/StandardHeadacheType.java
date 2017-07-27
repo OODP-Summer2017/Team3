@@ -24,4 +24,8 @@ public class StandardHeadacheType extends AbstractHeadacheType {
 	public StandardHeadacheType(HeadacheType type){
 		this.type = type;
 	}
+	
+	public String getTypeAsString(){
+		return type.toString();
+	}
 }

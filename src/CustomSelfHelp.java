@@ -15,5 +15,9 @@ public class CustomSelfHelp extends AbstractSelfHelp {
 	public void setSelfHelpMethod(String selfHelpMethod) {
 		this.selfHelpMethod = selfHelpMethod;
 	}
+	
+	public String getSelfHelpAsString(){
+		return this.selfHelpMethod;
+	}
 
 }

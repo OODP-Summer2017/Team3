@@ -24,4 +24,8 @@ public class CustomSymptom extends AbstractSymptom {
 		this.symptomDescription = symptomDescription;
 	}
 	
+	public String getSymptomAsString(){
+		return symptomDescription;
+	}
+	
 }
