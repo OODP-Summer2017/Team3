@@ -33,19 +33,18 @@ public class Patient {
 			sum="\nDate = "+headacheList.get(i).getDate().toString()+
 					"\nDuration = "+headacheList.get(i).getDuration()+
 					"\nType = "+headacheList.get(i).getType().getTypeAsString()+ "\n" +
-					//"\nSymptoms = " +headacheList.get(i).getProdromeSymptoms()+" "+headacheList.get(i).getConcurrentSymptoms()+" "+headacheList.get(i).getPostdromeSymptoms()+
 					headacheList.get(i).getSymptomList() +
 					"\nSeverity = "+headacheList.get(i).getPainDescriptor().getSeverity();
 			
 					for(PainDescriptorContainer container : headacheList.get(i).getPainDescriptor().getLocationList())
 					{
-						sum+="\nLocation and Sidedness = " + container.getPainLocation().toString() + "/" + container.getSidedness().toString()+ "  ";
+						sum+="\nLocation and Sidedness = " + container.getPainLocation().toString() + 
+								"/" + container.getSidedness().toString()+ "  ";
 					}
 					
 					sum +="\nMedication = "+headacheList.get(i).getMedication().getName()+
 					"\nMedication Taken = "+headacheList.get(i).getMedication().getTimeTaken().toString()+
 					"\nMedication Effective = "+headacheList.get(i).getMedication().getTimeEffective().toString()+
-					//"\nSelf Help = "+headacheList.get(i).getselfhe+
 					"\n" + headacheList.get(i).getSelfHelpList() +
 					"\nTrigger = "+headacheList.get(i).getTrigger();
 		}
